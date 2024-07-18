@@ -3,21 +3,21 @@
 namespace vtr
 {
 	template <class T>
-	class Vector
+	class vector
 	{
 	private:
 		T* arr = NULL;
 		int elements = 0;
 		int cap = 0;
 	public:
-		Vector(void);
-		explicit Vector(T);
-		Vector(std::initializer_list<T>);
-		Vector(Vector<T>&);
-		~Vector(void);
-		Vector& operator=(const Vector&);
-		Vector& operator=(Vector&&);
-		Vector& operator=(std::initializer_list<T>);
+		vector(void);
+		explicit vector(T);
+		vector(std::initializer_list<T>);
+		vector(vector<T>&);
+		~vector(void);
+		vector& operator=(const vector&);
+		vector& operator=(vector&&);
+		vector& operator=(std::initializer_list<T>);
 		T& operator[](int);
 		void assign(int, const T);
 		T front(void);
@@ -34,14 +34,14 @@ namespace vtr
 		void push_back(T);
 		void pop_back(void);
 		void resize(size_t, T);
-		void swap(Vector<T>&);
+		void swap(vector<T>&);
 	};
 
 	template<class T>
-	Vector<T>::Vector(void) {}
+	vector<T>::vector(void) {}
 
 	template<class T>
-	Vector<T>::Vector(T a)
+	vector<T>::vector(T a)
 	{
 		arr = new T(a);
 		elements = 1;
@@ -49,7 +49,7 @@ namespace vtr
 	}
 
 	template<class T>
-	Vector<T>::Vector(std::initializer_list<T> init)
+	vector<T>::vector(std::initializer_list<T> init)
 	{
 		arr = new T[init.size()];
 		int i = 0;
@@ -63,7 +63,7 @@ namespace vtr
 	}
 
 	template<class T>
-	Vector<T>::Vector(Vector<T>& vect)
+	vector<T>::vector(vector<T>& vect)
 	{
 		arr = new T[vect.elements];
 		std::memcpy(arr, vect.arr, vect.elements * sizeof(T));
@@ -72,7 +72,7 @@ namespace vtr
 	}
 
 	template<class T>
-	Vector<T>::~Vector(void)
+	vector<T>::~vector(void)
 	{
 		elements = 0;
 		cap = 0;
@@ -80,23 +80,23 @@ namespace vtr
 	}
 
 	template<class T>
-	Vector<T>& Vector<T>::operator=(const Vector<T>& other) // check this again if need to use memcpy
+	vector<T>& vector<T>::operator=(const vector<T>& other) // check this again if need to use memcpy
 	{
-		~Vector();
-		Vector(other);
+		~vector();
+		vector(other);
 		return *this;
 	}
 
 	template<class T>
-	Vector<T>& Vector<T>::operator=(Vector<T>&& other)
+	vector<T>& vector<T>::operator=(vector<T>&& other)
 	{
-		~Vector();
-		Vector(other);
+		~vector();
+		vector(other);
 		return *this;
 	}
 
 	template<class T>
-	Vector<T>& Vector<T>::operator=(std::initializer_list<T> init)
+	vector<T>& vector<T>::operator=(std::initializer_list<T> init)
 	{
 		delete[] arr;
 		arr = new T[init.size()];
@@ -112,17 +112,17 @@ namespace vtr
 	}
 
 	template<class T>
-	T& Vector<T>::operator[](int index)
+	T& vector<T>::operator[](int index)
 	{
 		return arr[index];
 	}
 
 	template<class T>
-	void Vector<T>::assign(int count, const T val)
+	void vector<T>::assign(int count, const T val)
 	{
 		if (elements < count)
 		{
-			this->~Vector();
+			this->~vector();
 			arr = new T[count];
 			cap = count;
 		}
@@ -134,25 +134,25 @@ namespace vtr
 	}
 
 	template<class T>
-	T Vector<T>::front(void)
+	T vector<T>::front(void)
 	{
 		return arr[0];
 	}
 
 	template<class T>
-	T Vector<T>::back(void)
+	T vector<T>::back(void)
 	{
 		return arr[elements - 1];
 	}
 
 	template<class T>
-	T* Vector<T>::begin(void)
+	T* vector<T>::begin(void)
 	{
 		return arr;
 	}
 
 	template<class T>
-	T* Vector<T>::end(void)
+	T* vector<T>::end(void)
 	{
 		if (elements == 0)
 			return NULL;
@@ -161,19 +161,19 @@ namespace vtr
 	}
 
 	template<class T>
-	bool Vector<T>::empty(void)
+	bool vector<T>::empty(void)
 	{
 		return elements == 0 ? true : false;
 	}
 
 	template<class T>
-	int Vector<T>::size(void)
+	int vector<T>::size(void)
 	{
 		return elements;
 	}
 
 	template<class T>
-	void Vector<T>::reserve(int new_cap)
+	void vector<T>::reserve(int new_cap)
 	{
 		if (new_cap > cap)
 		{
@@ -190,19 +190,19 @@ namespace vtr
 	}
 
 	template<class T>
-	int Vector<T>::capacity(void)
+	int vector<T>::capacity(void)
 	{
 		return cap;
 	}
 
 	template<class T>
-	void Vector<T>::clear(void)
+	void vector<T>::clear(void)
 	{
 		elements = 0;
 	}
 
 	template<class T>
-	void Vector<T>::insert(T* pos, T&& value)
+	void vector<T>::insert(T* pos, T&& value)
 	{
 		if (elements < cap) 
 		{
@@ -250,7 +250,7 @@ namespace vtr
 	}
 
 	template<class T>
-	void Vector<T>::erase(T* pos)
+	void vector<T>::erase(T* pos)
 	{
 		if (pos == end())
 		{
@@ -267,7 +267,7 @@ namespace vtr
 	}
 
 	template<class T>
-	void Vector<T>::push_back(T val)
+	void vector<T>::push_back(T val)
 	{
 		if (elements >= cap)
 		{
@@ -282,13 +282,13 @@ namespace vtr
 	}
 
 	template<class T>
-	void Vector<T>::pop_back(void)
+	void vector<T>::pop_back(void)
 	{
 		elements--;
 	}
 
 	template<class T>
-	void Vector<T>::resize(size_t count, T val)
+	void vector<T>::resize(size_t count, T val)
 	{
 		if (count <= elements)
 		{
@@ -318,7 +318,7 @@ namespace vtr
 	}
 
 	template<class T>
-	void Vector<T>::swap(Vector<T>& other)
+	void vector<T>::swap(vector<T>& other)
 	{
 		T* temp_arr = other.arr;
 		int temp_cap = other.cap;
