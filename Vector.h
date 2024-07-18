@@ -1,5 +1,7 @@
-#pragma once
+#ifndef __vector__
+#define __vector__
 #include <initializer_list>
+#include <cstring>
 namespace vtr
 {
 	template <class T>
@@ -82,16 +84,20 @@ namespace vtr
 	template<class T>
 	vector<T>& vector<T>::operator=(const vector<T>& other) // check this again if need to use memcpy
 	{
-		~vector();
-		vector(other);
+		arr = new T[other.elements];
+		std::memcpy(arr, other.arr, other.elements * sizeof(T));
+		elements = other.elements;
+		cap = elements;
 		return *this;
 	}
 
 	template<class T>
 	vector<T>& vector<T>::operator=(vector<T>&& other)
 	{
-		~vector();
-		vector(other);
+		arr = new T[other.elements];
+		std::memcpy(arr, other.arr, other.elements * sizeof(T));
+		elements = other.elements;
+		cap = elements;
 		return *this;
 	}
 
@@ -331,3 +337,4 @@ namespace vtr
 		this->elements = temp_elements;
 	}
 }
+#endif
