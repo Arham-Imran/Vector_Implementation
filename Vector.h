@@ -16,6 +16,7 @@ namespace vtr
 		explicit vector(T);
 		vector(std::initializer_list<T>);
 		vector(vector<T>&);
+		vector(vector<T>&&);
 		~vector(void);
 		vector& operator=(const vector&);
 		vector& operator=(vector&&);
@@ -71,6 +72,17 @@ namespace vtr
 		std::memcpy(arr, vect.arr, vect.elements * sizeof(T));
 		elements = vect.elements;
 		cap = elements;
+	}
+
+	template<class T>
+	vector<T>::vector(vector<T>&& other)
+	{
+		arr = other.arr;
+		elements = other.elements;
+		cap = other.cap;
+		other.arr = nullptr;
+		elements = 0;
+		cap = 0;
 	}
 
 	template<class T>
