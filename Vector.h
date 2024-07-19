@@ -71,7 +71,7 @@ namespace vtr
 		arr = new T[vect.elements];
 		std::memcpy(arr, vect.arr, vect.elements * sizeof(T));
 		elements = vect.elements;
-		cap = elements;
+		cap = vect.cap;
 	}
 
 	template<class T>
