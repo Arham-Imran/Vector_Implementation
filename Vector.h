@@ -302,7 +302,10 @@ namespace vtr
 	template<class T>
 	void vector<T>::pop_back(void)
 	{
-		elements--;
+		if(elements > 0)
+			elements--;
+		else
+			return;
 	}
 
 	template<class T>
