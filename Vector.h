@@ -287,13 +287,18 @@ namespace vtr
 	template<class T>
 	void vector<T>::push_back(T val)
 	{
-		if (elements >= cap)
+		if (cap == 0)
 		{
-			T* temp = new T[cap * 2];
+			cap = 1;
+			arr = new T[cap];
+		}
+		else if (elements >= cap)
+		{
+			cap *= 2;
+			T* temp = new T[cap];
 			std::memcpy(temp, arr, elements * sizeof(T));
 			delete[] arr;
 			arr = temp;
-			cap *= 2;
 		}
 		arr[elements] = val;
 		elements++;
